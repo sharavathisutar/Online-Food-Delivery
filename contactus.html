@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <style>
+    /* CSS Styling */
+    body {
+      /* font-family: Arial, sans-serif; */
+      background-color:#d9f2ee ;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: var(--softGreenColor);
+}
+
+:root{
+    --primaryColor: #0e6253;
+    --secondrayColor: #ffc107;
+    --whiteColor: #fff;
+    --blackColor: #222;
+    --softGreenColor: #d9f2ee;
+    --darkGreyColor: #a7a7a7;
+    --greyColor: #f5f5f5;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: 'Open Sans',sans-serif;
+    /* font-size: 50px; */
+}
+
+.sidebar{
+    height: 100%;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 2%;
+    background-color: var(--primaryColor);
+    color: var(--whiteColor);
+    font-size: 20px;
+}
+.logo-img
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 8px;
+    margin-top: -15px;
+}
+
+.logo
+{
+    display: flex;
+    left: 15px;
+    margin-left: -30px;
+    align-items: center;
+    gap: 30px;
+    margin-top: 12px;
+}
+.logo-title
+{
+    color: #fff;
+    font-size: 40px;
+    margin-top: -5px;
+    margin-left: -28px;
+}
+.about-img
+{
+    width: 25px;
+    color: white;
+    
+}
+.sidebar-menus{
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-menus a , .sidebar-logout a {
+    padding: 5% 8%;
+    margin: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--whiteColor);
+}
+.sidebar-menus a ion-icon, .sidebar-logout a ion-icon{
+    font-size: 22px;
+    
+}
+.sidebar-menus a:hover , .sidebar-logout a:hover{
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    color:black ;
+    transition: 0.5s; 
+}
+
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      margin-left: 20%;
+      margin-top: 5%;
+    }
+
+    .logo1 {
+      max-width: 80px;
+      margin-bottom: 8px;
+      border-radius: 50%;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 28px;
+      color: #0e6253;
+    }
+
+    .info {
+      font-size: 16px;
+      margin: 15px auto;
+      line-height: 1.6;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+      padding-left: calc(100%-40px);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      outline: none;
+      padding-right: -50px;
+    }
+
+    .contact-form input[type="submit"] {
+      background-color: #0e6253;
+      color: #ffffff;
+      font-weight: bold;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+      border-radius: 18px;
+    }
+
+    .contact-form input[type="submit"]:hover {
+      background-color: #ffffff;
+      color: #0e6253;
+      border: 1px solid #0e6253;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+        <div class="logo">
+            <img src="logo.jpeg" alt="" class="logo-img">
+             <h1 class="logo-title"> FoodiesHub</h1>
+        </div>
+        
+        <div class="sidebar-menus">
+            <a href="index.html"><ion-icon name="storefront-outline"></ion-icon>Home</a>
+            <a href="order2.html"><ion-icon name="receipt-outline"></ion-icon>Bills</a>
+            <a href="about.html"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>About Us</a>
+            <a href="finalsearch.html"><svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>Search</a>
+            <a href="contactus.html"><ion-icon name="chatbubbles-outline"></ion-icon>Contact Us</a>
+            <a href="settings.html"><ion-icon name="settings-outline"></ion-icon>Settings</a>
+        </div>
+        <div class="sidebar-logout">
+            <a href="startpage.html"><ion-icon name="log-out-outline"></ion-icon>Logout</a>
+    
+        </div>
+    </div>
+  <!-- Container -->
+  <div class="container">
+    
+    <!-- Logo -->
+    <img src="logo.jpeg" alt="Logo" class="logo1">
+    
+    <!-- Contact Us Heading -->
+    <h1>Contact Us</h1>
+    <p>...Drop Us A Line...</p>
+
+    <!-- Contact Information -->
+    <div class="info">
+      <p><b>Address:</b> KLE JT COLLEAGE,GADG,582101</p>
+      <p><b>Phone:</b> 9144557863</p>
+      <p><b>Email:</b> foodieshub@gmail.in</p>
+    </div>
+
+    <!-- Contact Form -->
+    <form class="contact-form" id="contactForm">
+      <input type="text" name="fullname" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <input type="submit" value="Send Message">
+    </form>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const name = event.target.fullname.value;
+      const email = event.target.email.value;
+      const message = event.target.message.value;
+      
+      alert("Thank you for contacting us, " + name + "! We will get back to you shortly.");
+      
+      // Optionally, add code here to send data to a server
+     window.location.href="index.html";
+
+    });
+  </script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  
+</body>
+</html>

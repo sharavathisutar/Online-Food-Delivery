@@ -13,3 +13,6 @@ document.getElementById('signupForm').addEventListener('submit', function(event)
         alert('Please fill in all fields.');
     }
 });
+function signup() {
+    alert("Sign up successful!");
+    window.location.href = "index.html"; }

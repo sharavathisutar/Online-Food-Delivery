@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Menu Search</title>
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #c4dfdb;
+    }
+    
+    body{
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        width: 100%;
+        height: auto;
+        /* display: flex; */
+        background-color: var(--softGreenColor);
+    }
+    
+    :root{
+        --primaryColor: #0e6253;
+        --secondrayColor: #ffc107;
+        --whiteColor: #fff;
+        --blackColor: #222;
+        --softGreenColor: #d9f2ee;
+        --darkGreyColor: #a7a7a7;
+        --greyColor: #f5f5f5;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        font-family: 'Open Sans',sans-serif;
+        /* font-size: 50px; */
+    }
+    
+    .sidebar{
+        height: 100%;
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 2%;
+        background-color: var(--primaryColor);
+        color: var(--whiteColor);
+        font-size: 20px;
+    }
+    .logo-img
+    {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-left: 8px;
+        margin-top: -15px;
+    }
+    /* .logo-img:hover{
+        background-image: url("/images/logo5.jpg");
+    
+    } */
+    .logo
+    {
+        display: flex;
+        left: 15px;
+        margin-left: -30px;
+        align-items: center;
+        gap: 30px;
+        margin-top: 18px;
+    }
+    .logo-title
+    {
+        margin-top: -18px;
+        margin-left: -28px;
+    }
+    .about-img
+    {
+        width: 25px;
+        color: white;
+        
+    }
+    .sidebar-menus{
+        display: flex;
+        flex-direction: column;
+    }
+    .sidebar-menus a , .sidebar-logout a {
+        padding: 5% 8%;
+        margin: 0.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        text-decoration: none;
+        color: var(--whiteColor);
+    }
+    .sidebar-menus a ion-icon, .sidebar-logout a ion-icon{
+        font-size: 22px;
+        
+    }
+    .sidebar-menus a:hover , .sidebar-logout a:hover{
+        background-color: rgb(255, 255, 255);
+        border-radius: 30px;
+        color:black ;
+        transition: 0.5s; 
+    }
+    
+    
+    #searchBar {
+        width: 60%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 2px solid rgb(40, 135, 114);
+        border-radius: 4px;
+        font-size: 16px;
+        text-align: center;
+        margin-left:30%;
+    }
+    #serachBar:active
+    {
+        border: 5px solid rgb(40, 135, 114);
+    }
+    
+    #results {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left:26%;
+    
+    }
+    
+    .item {
+        background-color: white;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 15px;
+        height: auto;
+        width: calc(30% - 15px); /* Adjust width as necessary */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+    
+    .item:hover {
+        transform: scale(1.05);
+    }
+    
+    .item img {
+        max-width: 100%;
+        border-radius: 8px;
+    }
+    
+    .item h3 {
+        font-size: 18px;
+        margin: 10px 0 5px;
+    }
+    
+    .item p {
+        font-size: 16px;
+        color: #555;
+    }
+    
+    p {
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+    }
+    
+    .add-to-cart-btn {
+        display: inline-block;
+        background-color: var(--primaryColor);
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-align: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .add-to-cart-btn:hover {
+        background-color: var(--secondrayColor);
+    }
+    #cart-icon {
+        position: fixed;
+        top: 20px;
+        right: 30px;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--primaryColor);
+        display: flex;
+        align-items: center;
+    }
+    #cart-count {
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        margin-left: 5px;
+        font-size: 14px;
+    }
+    #cart-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 500px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #cart-modal table {
+        width: 100%;
+    }
+    #cart-modal table th, #cart-modal table td {
+        padding: 8px;
+        text-align: left;
+    }
+    #total-price {
+        font-weight: bold;
+        text-align: right;
+        padding-top: 10px;
+    }
+    .order-now-btn {
+    background-color: var(--primaryColor);
+    color: var(--whiteColor);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.order-now-btn:hover {
+    background-color: green; /* Change to the desired hover color */
+}
+.close-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--blackColor);
+}
+
+
+</style>
+
+    
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="images/logo.jpeg" alt="" class="logo-img">
+             <h1 class="logo-title"> FoodiesHub</h1>
+             <!-- <img src="FoodiesHub_logo.png" class="logo-img" alt=""> -->
+        </div>
+        <div class="sidebar-menus">
+            <a href="index.html"><ion-icon name="storefront-outline"></ion-icon>Home</a>
+            <a href="order2.html"><ion-icon name="receipt-outline"></ion-icon>Bills</a>
+            <a href="about.html"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>About Us</a>
+            <a href="finalsearch.html"><svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>Search</a>
+            <a href="contactus.html"><ion-icon name="chatbubbles-outline"></ion-icon>Contact Us</a>
+            <a href="finalsearch.html"><ion-icon name="settings-outline"></ion-icon>Settings</a>
+        </div>
+        <div class="sidebar-logout">
+            <a href="start.html"><ion-icon name="log-out-outline"></ion-icon>Logout</a>
+    
+        </div>
+    </div>
+
+        <input type="text" id="searchBar" placeholder="Search for menu items...">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg>
+
+    <div id="results"></div>
+    <div id="cart-icon">
+        <ion-icon name="cart-outline"></ion-icon>
+        <span id="cart-count">0</span>
+    </div>
+    
+    <div id="cart-modal">
+        <h3>Cart Items</h3>
+        <span id="close-cart" class="close-icon">&times;</span>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody id="cart-items"></tbody>
+        </table>
+        <div id="total-price">Total: Rs. 0/-</div>
+        <button id="order-now-btn" class="order-now-btn">Order Now</button>
+
+    </div>
+    
+    <script>
+       const menuItems = {
+    pizza: [
+        { name: "Margherita Pizza", price: "Rs. 249/-", img: "images/margherita.jpg" },
+        { name: "Pepperoni Pizza", price: "Rs. 269/-", img: "images/pepperonipizza.jpg" },
+        { name: "BBQ Chicken Pizza", price: "Rs. 329/-", img: "images/bbqpizza.avif" },
+        { name: "Veggie Pizza", price: "Rs. 199/-", img: "images/veggie pizza.jpg" },
+        { name: "Hawaiian Pizza", price: "Rs. 229/-", img: "images/friedmomo.jpg" },
+        { name: "Four Cheese Pizza", price: "Rs. 319/-", img: "images/fourpizza.avif" }
+    ],
+    biryani: [
+        { name: "Chicken Biryani", price: "Rs. 199/-", img: "images/chickenb.jpg" },
+        { name: "Veg Biryani", price: "Rs. 149/-", img: "images/vegb.jpg" },
+        { name: "Mutton Biryani", price: "Rs. 289/-", img: "images/muttonb.webp" },
+        { name: "Hyderabadi Biryani", price: "Rs. 229/-", img: "images/chicken.jpeg" },
+        { name: "Kashmiri Biryani", price: "Rs. 259/-", img: "images/kashmirib.jpg" }
+    ],
+    momos: [
+        { name: "Steam Veg Momos", price: "Rs. 99/-", img: "images/steammomos.webp" },
+        { name: "Fried Chicken Momos", price: "Rs. 199/-", img: "images/friedm.webp" },
+        { name: "Paneer Momos", price: "Rs. 129/-", img: "images/paneermomo.avif" },
+        { name: "Spicy Pork Momos", price: "Rs. 129/-", img: "images/spicymomo.avif" },
+        { name: "Cheese Momos", price: "Rs. 149/-", img: "images/cheesem.jpg" }
+    ],
+    burger: [
+        { name: "Chicken Burger", price: "Rs. 199/-", img: "images/chickenburger.avif" },
+        { name: "Cheese burger", price: "Rs. 159/-", img: "images/cheeseburst" },
+        { name: "Veggie Burger", price: "Rs. 99/-", img: "assets/vegburger.jpg" },
+        { name: "BBQ Bacon Burger", price: "Rs. 189/-", img: "assets/bbqburger.jpg" },
+        { name: "Classic Burger", price: "Rs. 129/-", img: "assets/classicburger.png" }
+        
+    ],
+    cappuccino: [
+        { name: "Classic Cappuccino", price: "Rs. 199/-", img: "assets/classiccapachino.jpg" },
+        { name: "Mocha Cappuccino", price: "Rs. 249/-", img: "assets/Mochacapachino.jpeg" },
+        { name: "Vanilla Cappuccino", price: "Rs. 249/-", img: "assets/venillacapechino.jpg" },
+        { name: "Caramel Cappuccino", price: "Rs. 299/-", img: "assets/Caremalcapachino.jpg" },
+        { name: "Hazelnut Cappuccino", price: "Rs. 299/-", img: "assets/Hazelnut.webp" }
+    ],
+    mojito: [
+        { name: "Mint Mojito", price: "Rs. 99/-", img: "assets/mint.jpg" },
+        { name: "Classic Mojito", price: "Rs. 89/-", img: "assets/classic mojito.avif" },
+        { name: "Strawberry Mojito", price: "Rs. 129/-", img: "assets/strawberry mojito.jpg" },
+        { name: "Mango Mojito", price: "Rs. 149/-", img: "assets/mango mojito.jpg" },
+        { name: "Blueberry Mojito", price: "Rs. 149/-", img: "assets/blueberrym.jpg" }
+        
+    ],
+    iceCream: [
+        { name: "Vanilla Ice Cream", price: "Rs. 129/-", img: "assets/vanilla.webp" },
+        { name: "Chocolate Ice Cream", price: "Rs. 129/-", img: "assets/chocolate.jpg" },
+        { name: "Strawberry Ice Cream", price: "Rs. 129/-", img: "assets/strawberry.jpg" },
+        { name: "Mango Ice Cream", price: "Rs. 129/-", img: "assets/mangoice.jpg" },
+        { name: "Cookies Ice Cream", price: "Rs. 149/-", img: "assets/cookies.jpg" }
+    ],
+    pasta: [
+        { name: "White Cheese pasta", price: "Rs. 149/-", img: "assets/cheesepasta.jpg" },
+        { name: "Masala Pasta", price: "Rs. 129/-", img: "assets/masalapasta.jpg" },
+        { name: "Red Sauce Pasta", price: "Rs. 99/-", img: "assets/redsausepasta.jpg" },
+        { name: "Lasagna Pasta", price: "Rs. 179/-", img: "assets/lasagna pasta.jpg" },
+        { name: "Pesto Pasta", price: "Rs. 199/-", img: "assets/pesto pasta.webp" }
+    ]   
+    // Other categories like biryani, momos, etc.
+};
+    
+    document.getElementById('searchBar').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const results = document.getElementById('results');
+        results.innerHTML = '';
+    
+        for (const [key, items] of Object.entries(menuItems)) {
+            if (key.includes(query)) {
+                items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('item');
+                    itemDiv.innerHTML = `
+                        <img src="${item.img}" alt="${item.name}">
+                        <h3>${item.name}</h3>
+                        <p>${item.price}</p>
+                    `;
+                    results.appendChild(itemDiv);
+                });
+            } else {
+                items.forEach(item => {
+                    if (item.name.toLowerCase().includes(query)) {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.classList.add('item');
+                        itemDiv.innerHTML = `
+                            <img src="${item.img}" alt="${item.name}">
+                            <h3>${item.name}</h3>
+                            <p>${item.price}</p>
+                        `;
+                        results.appendChild(itemDiv);
+                    }
+                });
+            }
+        }
+    
+        if (results.innerHTML === '') {
+            results.innerHTML = '<p>No results found.</p>';
+        }
+    });
+    
+    function displayItems(items) {
+        const results = document.getElementById('results');
+        results.innerHTML = '';
+        
+        items.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('item');
+            itemDiv.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <h3>${item.name}</h3>
+                <p>${item.price}</p>
+            `;
+            results.appendChild(itemDiv);
+        });
+    }
+    
+    // Initial load to display all items
+    window.onload = () => {
+        let allItems = [];
+        Object.values(menuItems).forEach(category => allItems = [...allItems, ...category]);
+        displayItems(allItems);
+    };
+    
+    // Search functionality
+    document.getElementById('searchBar').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        let filteredItems = [];
+    
+        // Filter items based on category or item name
+        for (const items of Object.values(menuItems)) {
+            items.forEach(item => {
+                if (item.name.toLowerCase().includes(query) || query === '') {
+                    filteredItems.push(item);
+                }
+            });
+        }
+    
+        displayItems(filteredItems);
+    
+        if (filteredItems.length === 0) {
+            results.innerHTML = '<p>No results found.</p>';
+        }
+    });
+    let cart = [];
+
+function addToCart(itemName, itemPrice) {
+    const existingItem = cart.find(item => item.name === itemName);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name: itemName, price: parseInt(itemPrice.replace(/Rs. |\//g, '')), quantity: 1 });
+    }
+    updateCartIcon();
+}
+
+function updateCartIcon() {
+    const cartCount = cart.reduce((count, item) => count + item.quantity, 0);
+    document.getElementById('cart-count').innerText = cartCount;
+}
+
+    
+
+
+
+function openCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    cartItemsContainer.innerHTML = '';
+    let totalPrice = 0;
+    cart.forEach(item => {
+        totalPrice += item.price * item.quantity;
+        cartItemsContainer.innerHTML += `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.quantity}</td>
+                <td>Rs. ${item.price * item.quantity}/-</td>
+            </tr>
+        `;
+    });
+    document.getElementById('total-price').innerText = `Total: Rs. ${totalPrice}/-`;
+    document.getElementById('cart-modal').style.display = 'block';
+}
+
+document.getElementById('cart-icon').addEventListener('click', openCart);
+document.getElementById('cart-modal').addEventListener('click', () => {
+    document.getElementById('cart-modal').style.display = 'none';
+});
+
+function displayItems(items) {
+    const results = document.getElementById('results');
+    results.innerHTML = '';
+    
+    items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('item');
+        itemDiv.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>${item.price}</p>
+            <button class="add-to-cart-btn" onclick="addToCart('${item.name}', '${item.price}')">Add to Cart</button>
+        `;
+        results.appendChild(itemDiv);
+    });
+}
+
+document.getElementById('order-now-btn').addEventListener('click', function() {
+    window.location.href = 'order3.html';
+});
+document.getElementById('close-cart').addEventListener('click', function() {
+    document.getElementById('cart-modal').style.display = 'none';
+});
+  </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"> </script>
+     
+</body>
+</html>
